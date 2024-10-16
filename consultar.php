@@ -21,7 +21,7 @@
                         <p><span class='desc_produto'>$descricao</span></p>
                         <p>Setor: <span class='setor_produto'>$setor</span></p>
                         <p>Categoria: <span class='cat_produto'>$categoria</span></p>
-                  </div>                         
+                  </div>
             ";
         }
     }catch(PDOException $erro){
