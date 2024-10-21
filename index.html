@@ -82,6 +82,8 @@
             });
 
             $("#btnCadastrar").click(function(){
+                $("#carregando3").hide();
+                $("carregando").show();
                 var descricao = $("#descricao2").val();
                 var categoria = $("#categoria2").val();
                 var setor = $("#setor2").val();

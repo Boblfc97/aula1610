@@ -14,9 +14,7 @@ $inserir = $pdo->prepare($sql);
 try{
     $inserir->execute();
     echo "
-        <script>
-            alert('Cadastrado com sucesso');
-        </script>
+            Cadastrado com sucesso!
     ";
 } catch(PDOException $erro){
     echo "Falha ao inserir!".$erro->getMessage();
