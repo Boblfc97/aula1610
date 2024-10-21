@@ -19,6 +19,6 @@ try{
         </script>
     ";
 } catch(PDOException $erro){
-    echo "Falha ao inserir!".$erro->getMesage();
+    echo "Falha ao inserir!".$erro->getMessage();
 }
 ?>

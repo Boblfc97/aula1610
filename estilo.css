@@ -36,7 +36,7 @@ input, select, button{
     padding-bottom: 10px;
 }
 
-#carregando, #carregando2{
+#carregando, #carregando2, #carregando3{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
@@ -46,6 +46,7 @@ input, select, button{
     justify-content: center;
     position: fixed;
     top: 0px;
+    z-index: 1000;
 }
 
 #formulario{
@@ -64,4 +65,27 @@ input, select, button{
 
 #carregando img{
     height: 80px;
+}
+
+#btnAdicionar{
+    background-color: red;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 35px;
+    border-radius: 100%;
+    transition: all 0.5s;
+    position: fixed;
+    z-index: 999;
+    right: 20px;
+    bottom: 20px;
+}
+
+#btnAdicionar:hover{
+    cursor: pointer;
+    transform: scale(1.2);
 }

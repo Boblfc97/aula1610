@@ -12,14 +12,40 @@
         <img src="carregando.gif">
     </div>
 
+    <div id="btnAdicionar"> + </div>
+
     <div id="carregando2">
         <div id="formulario">
             <button id="btnFechar"> x </button> <br> <br>
-            Código: <input type="text" id="codigo"> <br> <br>
+            Código: <input type="text" id="codigo" disabled> <br> <br>
             Descrição: <input type="text" id="descricao"> <br> <br>
             Categoria: <input type="text" id="categoria"> <br> <br>
+            <select id="setor">
+                <option value="Suporte">Suporte</option>
+                <option value="NEP">NEP</option>
+                <option value="NAD">NAD</option>
+                <option value="Atendimento">Atendimento</option>
+                <option value="Administrativo">Administrativo</option>
+            </select> <br> <br>
             <button id="btnSalvar">Salvar Alterações</button>
             <button id="btnDeletar">Deletar</button>
+        </div>
+    </div>
+
+    <div id="carregando3">
+        <div id="formulario">
+            <button id="btnFechar2"> x </button> <br> <br>
+            Descrição: <input type="text" id="descricao2"> <br> <br>
+            Categoria: <input type="text" id="categoria2"> <br> <br>
+            Setor:
+            <select id="setor2">
+                <option value="Suporte">Suporte</option>
+                <option value="NEP">NEP</option>
+                <option value="NAD">NAD</option>
+                <option value="Atendimento">Atendimento</option>
+                <option value="Administrativo">Administrativo</option>
+            </select> <br> <br>
+            <button id="btnCadastrar">Cadastrar</button>
         </div>
     </div>
 
@@ -47,8 +73,95 @@
                 $("#carregando2").hide();
             });
 
+            $("#carregando3").hide();
+            $("#btnFechar2").click(function(){
+                $("#carregando3").hide();
+            });
+            $("#btnAdicionar").click(function(){
+                $("#carregando3").show();
+            });
+
+            $("#btnCadastrar").click(function(){
+                var descricao = $("#descricao2").val();
+                var categoria = $("#categoria2").val();
+                var setor = $("#setor2").val();
+
+                $.ajax({
+                    url: 'inserir.php',
+                    type: 'POST',
+                    data: {
+                        descricao_digitada: descricao,
+                        setor_selecionado: setor,
+                        categoria: categoria
+                    },
+                    success: function(data){
+                        $("#carregando3").hide();
+                        alert(data);
+                        $("#conteudo").load("consultar.php");
+                    },
+                    error: function(){
+                        alert ("Falha ao Cadastrar");
+                    }
+                });
+            });
+
+
+            $("#btnSalvar").click(function(){
+                var codigo = $("#codigo").val();
+                var descricao = $("#descricao").val();
+                var categoria = $("#categoria").val();
+                var setor = $("#setor").val();
+
+                $.ajax({
+                    url: 'atualizar.php',
+                    type: 'POST',
+                    data: {
+                        cod: codigo,
+                        desc_nova: descricao,
+                        cat_nova: categoria,
+                        setor_novo: setor
+                    },
+                    success: function(data){
+                        alert(data);
+                        $("#conteudo").load("consultar.php");
+                        $("#carregando2").hide();
+                    },
+                    error: function(){
+                        alert ("Falha ao Atualizar!");
+                    }
+                });
+            });
+
+            $("#btnDeletar").click(function(){
+                if(confirm("Tem Certeza que deseja apagar?")){
+                    var codigo = $("#codigo").val();
+                    $.ajax({
+                        url: 'deletar.php',
+                        type: 'GET',
+                        data: {cod: codigo},
+                        success: function(){
+                            alert ("Deletado com Sucesso!");
+                            $("#carregando2").hide();
+                            $("#conteudo").load("consultar.php");
+                        },
+                        error: function(){
+                            alert ("Falha ao Deletar!");
+                        }
+                    }); //Fim do Ajax
+                } //Fim do If
+            }); //Fim do Click
+
             $(document).on("click", ".cartoes", function(){
                 $("#carregando2").show();
+                var codigo = $(this).find(".cod_produto").text();
+                var descricao = $(this).find(".desc_produto").text();
+                var setor = $(this).find(".setor_produto").text();
+                var categoria = $(this).find(".cat_produto").text();
+
+                $("#codigo").val(codigo);
+                $("#descricao").val(descricao);
+                $("#categoria").val(categoria);
+                $("#setor").val(setor)
             });
 
 
